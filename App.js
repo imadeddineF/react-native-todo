@@ -9,8 +9,12 @@ import {
   Button,
   TextInput,
   TouchableHighlight,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import immmg from "./assets/gear5.jpg";
+import Task from "./components/task";
+import InputField from "./components/inputField";
 
 export default function App() {
   const [layout, setLayout] = useState({});
@@ -21,89 +25,19 @@ export default function App() {
   };
 
   return (
-    <View
-      onLayout={layoutHandler}
-      pointerEvents="none"
-      style={styles.container}
-    >
-      <Text
-        style={{
-          fontSize: 28,
-          fontWeight: "bold",
-          marginTop: 40,
-          marginLeft: 20,
-        }}
-      >
-        Today's tasks
-      </Text>
-      <View style={styles.inputFieldSec}>
-        <TextInput
-          keyboardType="default"
-          style={styles.input}
-          placeholder="Enter your name"
-        />
-        <TouchableHighlight
-          style={{
-            backgroundColor: "#007bff",
-            padding: 10,
-            borderRadius: 12,
-            height: "100%",
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Text style={{ color: "#fff", fontSize: 18 }}>Add</Text>
-        </TouchableHighlight>
-      </View>
-
+    <View onLayout={layoutHandler} style={styles.container}>
+      <Text style={styles.title}>Today's tasks</Text>
       <View style={styles.todosSec}>
-        <View style={styles.todo}>
-          <Text>hi</Text>
-          <TouchableHighlight
-            style={{
-              backgroundColor: "red",
-              borderRadius: 100,
-              height: 40,
-              width: 40,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Text style={{ color: "#fff", fontSize: 18 }}>X</Text>
-          </TouchableHighlight>
-        </View>
-        <View style={styles.todo}>
-          <Text>hi</Text>
-          <TouchableHighlight
-            style={{
-              backgroundColor: "red",
-              borderRadius: 100,
-              height: 40,
-              width: 40,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Text style={{ color: "#fff", fontSize: 18 }}>X</Text>
-          </TouchableHighlight>
-        </View>
-        <View style={styles.todo}>
-          <Text>hi</Text>
-          <TouchableHighlight
-            style={{
-              backgroundColor: "red",
-              borderRadius: 100,
-              height: 40,
-              width: 40,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Text style={{ color: "#fff", fontSize: 18 }}>X</Text>
-          </TouchableHighlight>
-        </View>
+        <Task text="one" />
+        <Task text="two" />
+        <Task text="three" />
       </View>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.keyBoard}
+      >
+        <InputField />
+      </KeyboardAvoidingView>
 
       {/* <Image blurRadius={3} style={styles.imaage} source={immmg}></Image> */}
       {/* <View style={styles.blurBg} /> */}
@@ -117,24 +51,12 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
     backgroundColor: "#e8eaed",
+    paddingHorizontal: 20,
   },
-  inputFieldSec: {
-    marginTop: 50,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 20,
-    height: 90,
-    gap: 15,
-  },
-  input: {
-    backgroundColor: "#fff",
-    borderColor: "#ccc",
-    borderWidth: 1,
-    borderRadius: 10,
-    padding: 10,
-    height: "100%",
-    width: "70%",
+  title: {
+    fontSize: 28,
+    fontWeight: "bold",
+    marginTop: 40,
   },
   todosSec: {
     marginTop: 5,
@@ -145,15 +67,11 @@ const styles = StyleSheet.create({
     width: "90%",
     alignSelf: "center",
   },
-  todo: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: 20,
-    height: 60,
-    backgroundColor: "white",
+  keyBoard: {
+    position: "absolute",
+    bottom: 50,
+    alignSelf: "center",
     width: "100%",
-    borderRadius: 10,
   },
   imaage: {
     height: "100%",
